@@ -1,6 +1,5 @@
 const express = require("express");
 const bookmarks = express.Router();
-
 // import from queries
 const { getAllBookmarks } = require("../queries/bookmarks.js");
 
