@@ -7,5 +7,12 @@ const checkName = (req, res, next) => {
    } else {
        res.status(400).json({ error: "Name is required" });
    }
+   
+   /* validation - check the data type */
+   if (typeof req.body.is_favorite === "boolean") {
+       next();
+   } else {
+       res.status(400).json({ error: "is_favorite must be a boolean" });
+   }
 };
 module.exports = { checkName };
