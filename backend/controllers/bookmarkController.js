@@ -3,6 +3,9 @@ const bookmarks = express.Router();
 // import from queries
 const { getAllBookmarks, getBookmark, createBookmark } = require("../queries/bookmarks.js");
 
+// import our validations file, and then inject as middleware into POST
+const { checkName } = require("../validations/checkBookmarks.js");
+
 // INDEX
 bookmarks.get("/", async (req, res)=>{
     try {
@@ -43,7 +46,8 @@ bookmarks.get("/:id", async (req, res)=>{
     // if (!name || !url || !is_favorite).... return json response incorrect format
 
 */
-bookmarks.post("/", async (req, res)=>{
+/* Injecting middleware `checkName` into our code, only for this post, if the name is formatted correctly. */
+bookmarks.post("/", checkName, async (req, res)=>{
     const { body } = req;
     try {
         const createdBookmark = await createBookmark(body);
