@@ -20,7 +20,7 @@ By doing it this way, it's more for security and protecting your database.
 */
 const getBookmark = async (id) => {
     try {
-        const oneBookmark = await  db.one("SELECT * FROM bookmarks WHERE id=$1", id);
+        const oneBookmark = await db.one("SELECT * FROM bookmarks WHERE id=$1", id);
         return oneBookmark;
     } catch (error) {
         return error;
