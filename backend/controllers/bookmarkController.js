@@ -35,4 +35,26 @@ bookmarks.get("/:id", async (req, res)=>{
     }
 })
 
+// CREATE
+/*
+    --- optional ---, a way to show validation (if you want...)
+    const { name, url, is_favorite, category } = req.body;
+    we want to know if these fields exist - validation step
+    // if (!name || !url || !is_favorite).... return json response incorrect format
+
+*/
+bookmarks.post("/", async (req, res)=>{
+    const { body } = req;
+    try {
+        const createdBookmark = await createBookmark(body);
+        if (createdBookmark.id) {
+            res.status(200).json(createdBookmark);
+        } else {
+            res.status(500).json({ error: "Bookmark creation error" });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+})
+
 module.exports = bookmarks;

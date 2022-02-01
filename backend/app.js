@@ -8,9 +8,10 @@ const bookmarkController = require("./controllers/bookmarkController.js");
 // Configuration
 const app = express();
 
-// Middleware
+// injecting Middleware
 app.use(cors());
 app.use(express.json());
+// - if your path has `"/bookmarks"` in it, run `bookmarkController`
 app.use("/bookmarks", bookmarkController);
 
 // Routes
