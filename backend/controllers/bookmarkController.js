@@ -1,7 +1,8 @@
 const express = require("express");
+const res = require("express/lib/response");
 const bookmarks = express.Router();
 // import from queries
-const { getAllBookmarks, getBookmark, createBookmark, deleteBookmark } = require("../queries/bookmarks.js");
+const { getAllBookmarks, getBookmark, createBookmark, deleteBookmark, updateBookmark } = require("../queries/bookmarks.js");
 
 // import our validations file, and then inject as middleware into POST
 const { checkName } = require("../validations/checkBookmarks.js");
@@ -76,5 +77,20 @@ bookmarks.delete("/:id", async(req, res)=>{
 })
 
 // UPDATE
+/* 
+    - body is an object coming from the form itself. body is the shape of our bookmark. 
+    - updatedBookmark is coming from the database directly.
+    - All the changes should have been applied, and be returned.
+*/
+bookmarks.put("/:id", async (req, res)=>{
+    const { id } = req.params;
+    const { body } = req;
+    const updatedBookmark = await updateBookmark(id, body);
+    if (updatedBookmark.id) {
+        res.status(200).json(updatedBookmark);
+    } else {
+        res.status(404).json({ error: "Bookmark not found" });
+    }
+})
 
 module.exports = bookmarks;

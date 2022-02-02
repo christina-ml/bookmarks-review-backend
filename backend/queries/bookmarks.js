@@ -1,4 +1,5 @@
-const { one } = require("../db/dbConfig.js");
+// const pg = require("pg-promise/typescript/pg-subset");
+// const { one } = require("../db/dbConfig.js");
 const db = require("../db/dbConfig.js");
 
 /* Getting ALL bookmarks */
@@ -56,10 +57,33 @@ const deleteBookmark = async (id) => {
 }
 
 // UPDATE bookmark
+/* a combination of `create` bookmark & `get` bookmark */
+/* 
+    - if we wanted to make `id` as `$1`, name would be `$2`, url `$3`, etc. 
+    - `id` is coming from a form, that's why it's NOT `bookmark.id`
+    - the order it shows up in the query makes more sense, so that's why we have `name=$1`
+
+const updatedBookmark = await db.one(
+    "UPDATE bookmarks SET name=$2, url=$3, category=$4, is_favorite=$5 WHERE id=$1 RETURNING *",
+    [id, bookmark.name, bookmark.url, bookmark.category, bookmark.is_favorite]
+)
+*/
+const updateBookmark = async (id, bookmark) => {
+    try {
+        const updatedBookmark = await db.one(
+            "UPDATE bookmarks SET name=$1, url=$2, category=$3, is_favorite=$4 WHERE id=$5 RETURNING *",
+            [bookmark.name, bookmark.url, bookmark.category, bookmark.is_favorite, id]
+        )
+        return updatedBookmark;
+    } catch (error) {
+        return error;
+    }
+}
 
 module.exports = {
     getAllBookmarks,
     getBookmark,
     createBookmark,
     deleteBookmark,
+    updateBookmark,
 };
