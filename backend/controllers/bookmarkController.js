@@ -1,11 +1,11 @@
 const express = require("express");
-const res = require("express/lib/response");
 const bookmarks = express.Router();
 // import from queries
 const { getAllBookmarks, getBookmark, createBookmark, deleteBookmark, updateBookmark } = require("../queries/bookmarks.js");
 
 // import our validations file, and then inject as middleware into POST
 const { checkName } = require("../validations/checkBookmarks.js");
+const { validateURL } = require("../validations/validateURL.js");
 
 // INDEX
 bookmarks.get("/", async (req, res)=>{
@@ -48,7 +48,7 @@ bookmarks.get("/:id", async (req, res)=>{
 
 */
 /* Injecting middleware `checkName` into our code, only for this post, if the name is formatted correctly. */
-bookmarks.post("/", checkName, async (req, res)=>{
+bookmarks.post("/", checkName, validateURL, async (req, res)=>{
     const { body } = req;
     try {
         const createdBookmark = await createBookmark(body);
@@ -82,7 +82,7 @@ bookmarks.delete("/:id", async(req, res)=>{
     - updatedBookmark is coming from the database directly.
     - All the changes should have been applied, and be returned.
 */
-bookmarks.put("/:id", async (req, res)=>{
+bookmarks.put("/:id", validateURL, async (req, res)=>{
     const { id } = req.params;
     const { body } = req;
     const updatedBookmark = await updateBookmark(id, body);

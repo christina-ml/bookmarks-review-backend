@@ -1,5 +1,3 @@
-// const pg = require("pg-promise/typescript/pg-subset");
-// const { one } = require("../db/dbConfig.js");
 const db = require("../db/dbConfig.js");
 
 /* Getting ALL bookmarks */
