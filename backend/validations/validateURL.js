@@ -1,4 +1,4 @@
-/* 
+/*
     - making a validateURL - Final Validation asks where you need to put these?
     - These need to go into CREATE and UPDATE, because we are adding/modifying the url in those places.
 */
