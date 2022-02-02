@@ -41,8 +41,25 @@ const createBookmark = async (bookmark) => {
     }
 }
 
+// DELETE bookmark
+const deleteBookmark = async (id) => {
+    try {
+        const deletedBookmark = await db.one(
+            /* sanitized before going in there with `$1`. $1 is expecting an argument after. */
+            "DELETE FROM bookmarks WHERE id = $1 RETURNING *",
+            id
+            );
+            return deletedBookmark;
+    } catch (error) {
+        return error;
+    }
+}
+
+// UPDATE bookmark
+
 module.exports = {
     getAllBookmarks,
     getBookmark,
-    createBookmark
+    createBookmark,
+    deleteBookmark,
 };
