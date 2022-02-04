@@ -29,6 +29,21 @@ function Reviews() {
       .catch((c) => console.warn("catch", c));
   };
 
+  /* handleEdit different from handleAdd */
+  const handleEdit = (updatedReview) => {
+    axios
+      .put(`${API}/bookmarks/${id}/reviews/${updatedReview.id}`, updatedReview)
+      .then((response) => {
+        const copyReviewArray = [...reviews];
+        const indexUpdatedReview = copyReviewArray.findIndex((review) => {
+          return review.id === updatedReview.id;
+        });
+        copyReviewArray[indexUpdatedReview] = response.data;
+        setReviews(copyReviewArray);
+      })
+      .catch((c) => console.warn("catch", c));
+  };
+
   return (
     <section className="Reviews">
       <h2>Reviews</h2>
