@@ -12,9 +12,7 @@ const {
 
 // INDEX
 reviews.get("/", async (req, res) => {
-  const { bookmarkId } = req.params;
-
-  const allReviews = await getAllReviews(bookmarkId);
+  const allReviews = await getAllReviews();
   if (allReviews[0]) {
     res.status(200).json(allReviews);
   } else {
