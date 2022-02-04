@@ -4,20 +4,20 @@ import { useState } from "react";
 /* Passing down some new props - handleDelete and handleSubmit */
 function Review({ review, handleDelete, handleSubmit }) {
     /* Set state (boolean) */
-    const [viewEditForm, toggleEditForm] = useState(false);
+    const [toggleEditForm, setToggleEditForm] = useState(false);
 
     /* button that toggles the edit form */
     const toggleView = () => {
-        toggleEditForm(!viewEditForm);
+        setToggleEditForm(!toggleEditForm);
       };
 
     return (
         <div className="Review">
         <button onClick={toggleView}>edit this review</button>
 
-        {/* Adding Ternary - if viewEditForm button has been clicked (boolen is true), rendering pre-filled ReviewForm, OR, all our normal information from before will be displayed. */}
+        {/* Adding Ternary - if toggleEditForm button has been clicked (boolen is true), rendering pre-filled ReviewForm, OR, all our normal information from before will be displayed. */}
         {   
-            viewEditForm ? (
+            toggleEditForm ? (
                 <ReviewForm reviewDetails={review} />
             ) : (
                 <div>
