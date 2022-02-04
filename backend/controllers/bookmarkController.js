@@ -7,6 +7,10 @@ const { getAllBookmarks, getBookmark, createBookmark, deleteBookmark, updateBook
 const { checkName } = require("../validations/checkBookmarks.js");
 const { validateURL } = require("../validations/validateURL.js");
 
+/* Nesting our reviewsController inside our bookmarksController */
+const reviewsController = require("./reviewsController.js");
+bookmarks.use("/:bookmarkId/reviews", reviewsController);
+
 // INDEX
 bookmarks.get("/", async (req, res)=>{
     try {
