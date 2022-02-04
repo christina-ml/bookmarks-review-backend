@@ -18,6 +18,7 @@ function ReviewForm(props) {
   };
 
   useEffect(() => {
+    /* If it has `reviewDetails`, we are EDITING an existing review. */
     if (reviewDetails) {
       setReview(reviewDetails);
     }
@@ -26,9 +27,11 @@ function ReviewForm(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     props.handleSubmit(review, id);
+    /* If it has `reviewDetails`, we are EDITING an existing review. */
     if (reviewDetails) {
       props.toggleView();
     }
+    /* clearing the form, after you made a new one, or after you edited a form */
     setReview({
       reviewer: "",
       title: "",
