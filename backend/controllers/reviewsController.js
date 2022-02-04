@@ -11,6 +11,7 @@ const {
 } = require("../queries/reviews");
 
 // INDEX
+// Test the url: http://localhost:3003/bookmarks/2/reviews, http://localhost:3003/bookmarks/3/reviews
 reviews.get("/", async (req, res) => {
   const { bookmarkId } = req.params;
 

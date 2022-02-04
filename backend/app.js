@@ -4,7 +4,7 @@ const express = require('express');
 
 // Bookmarks ROUTES
 const bookmarkController = require("./controllers/bookmarkController.js");
-const reviewsController = require("./controllers/reviewsController.js");
+// const reviewsController = require("./controllers/reviewsController.js"); <--- DELETE
 
 // Configuration
 const app = express();
@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 // - if your path has `"/bookmarks"` in it, run `bookmarkController`
 app.use("/bookmarks", bookmarkController);
-app.use("/reviews", reviewsController);
+// app.use("/reviews", reviewsController); <--- DELETE
 
 // Routes
 app.get("/", (req, res)=>{
