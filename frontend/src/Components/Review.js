@@ -5,15 +5,24 @@ import { useState } from "react";
 function Review({ review, handleDelete, handleSubmit }) {
     /* Set state (boolean) */
     const [viewEditForm, setViewEditForm] = useState(false);
+    const [editButtonText, setEditButtonText] = useState("edit this review"); /* BONUS - for toggle */
 
     /* button that toggles the edit form */
     const toggleView = () => {
+        /* BONUS (START) - Added state for `editButtonText` and an if/else to toggle "edit this review" with "see review" */
+        if (viewEditForm === false) {
+            setEditButtonText("see review")
+        } else {
+            setEditButtonText("edit this review")
+        }
+        /* BONUS (END) */
+
         setViewEditForm(!viewEditForm);
       };
 
     return (
         <div className="Review">
-          <button onClick={toggleView}>edit this review</button>
+          <button onClick={toggleView}>{editButtonText}</button>
             {/* Adding Ternary - if viewEditForm button has been clicked (boolen is true), rendering pre-filled ReviewForm, OR, all our normal information from before will be displayed. */}
             {
               viewEditForm ? (
