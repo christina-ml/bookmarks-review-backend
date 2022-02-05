@@ -29,6 +29,24 @@ function Reviews() {
       .catch((c) => console.warn("catch", c));
   };
 
+  /* handeDelete */
+  const handleDelete = (id) => {
+    axios
+      .delete(`${API}/bookmarks/${id}/reviews/${id}`)
+      .then(
+        (response) => {
+          const copyReviewArray = [...reviews];
+          const indexDeletedReview = copyReviewArray.findIndex((review) => {
+            return review.id === id;
+          });
+          copyReviewArray.splice(indexDeletedReview, 1);
+          setReviews(copyReviewArray);
+        },
+        (error) => console.error(error)
+      )
+      .catch((c) => console.warn("catch", c));
+  };
+
   /* handleEdit different from handleAdd */
   const handleEdit = (updatedReview) => {
     axios
@@ -51,7 +69,12 @@ function Reviews() {
         <h3>Add a New Review</h3>
       </ReviewForm>
       {reviews.map((review) => (
-        <Review key={review.id} review={review} />
+        <Review
+            key={review.id}
+            review={review}
+            handleSubmit={handleEdit}
+            handleDelete={handleDelete}
+        />
       ))}
     </section>
   );
